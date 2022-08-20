@@ -34,13 +34,18 @@ namespace PlatformService.Controller
          var platform = this._mapper.Map<Platform>(platformDto);
          var creationResult = await this._platformRepo.CreatePlatform(platform);
          if (creationResult == true){
-            return Ok("Created Successfully");
+            var createdPlatform = this._mapper.Map<ReadPlatformDto>(platform);
+            return CreatedAtRoute(
+               nameof(GetPlatformById),
+               new {Id = createdPlatform.Id},
+               createdPlatform
+            );
          }else{
             ModelState.AddModelError("", "Error while saving the new platform into the DB");
             return StatusCode(500, ModelState);
          }
       }
-      [HttpGet("{ID:int}")]
+      [HttpGet("{ID:int}", Name ="GetPlatformById")]
       public async Task<IActionResult> GetPlatformById([FromRoute] int ID)
       {
          var platform = await this._platformRepo.GetPlatformById(ID);
