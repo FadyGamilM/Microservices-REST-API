@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using PlatformService.Interfaces;
@@ -13,11 +14,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 /* ------------------------- Inject my own services ------------------------- */
-builder.Services.AddDbContext<AppDbContext>(
-    options => options.UseSqlServer(
-        builder.Configuration.GetConnectionString("conn")
-    )
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>(
+    options => 
+    {
+        options.UseNpgsql(
+            builder.Configuration.GetConnectionString("conn")
+        );
+    }
 );
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
 /* -------------------------------------------------------------------------- */
 
