@@ -14,13 +14,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 /* ------------------------- Inject my own services ------------------------- */
-builder.Services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>(
-    options => 
-    {
-        options.UseNpgsql(
-            builder.Configuration.GetConnectionString("conn")
-        );
-    }
+// builder.Services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>(
+//     options => 
+//     {
+//         options.UseNpgsql(
+//             builder.Configuration.GetConnectionString("conn")
+//         );
+//     }
+// );
+builder.Services.AddDbContext<AppDbContext>(
+    opt => opt.UseInMemoryDatabase("InMem")
 );
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
