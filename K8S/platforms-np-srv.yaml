@@ -1,0 +1,17 @@
+# platforms - node port - service file
+apiVersion: v1
+kind: Service
+metadata:
+  name: platformnpservice-srv
+spec:
+  type: NodePort
+  selector:
+    app: platformservice
+  ports:
+    - name: platformservice
+      protocol: TCP
+      # of the node port to be our external api to talk to 
+      port: 80
+      # of our running service inside the pod
+      targetPort: 80 
+
