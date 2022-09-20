@@ -1,0 +1,35 @@
+# lets specify the api version that this deployment file will use
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Specify the name of the deployment
+  name: commands-depl
+spec:
+  replicas: 1
+  #! Select the template we need
+  selector:
+    matchLabels:
+      app: commandservice
+  #! Define the POD and the CONTAINER we will use
+  template:
+    metadata:
+      labels:
+        app: commandservice
+    spec:
+      containers:
+        - name: commandservice
+          image: fadygamil/commandservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: commands-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: commandservice
+  ports:
+    - name: commandservice
+      protocol: TCP
+      port: 80
+      targetPort: 80
