@@ -1,5 +1,5 @@
 {
-  "FilePath": "f:\\__111 COMPUTER SCIENCE\\4th CSE 2022\\dotnet\\dev\\microservices\\Microservices-REST-API\\PlatformService\\PlatformService.csproj",
+  "FilePath": "f:\\__111 COMPUTER SCIENCE\\4th CSE 2022\\dotnet\\dev\\microservices\\Microservices-REST-API\\CommandService\\CommandService.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "6.0",
@@ -16295,7 +16295,7 @@
     ],
     "CSharpLanguageVersion": 1000
   },
-  "RootNamespace": "PlatformService",
+  "RootNamespace": "CommandService",
   "Documents": [],
   "SerializationFormat": "0.2"
 }

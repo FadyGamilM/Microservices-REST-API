@@ -4,6 +4,8 @@ using AutoMapper;
 using PlatformService.Interfaces;
 using PlatformService.Repositories;
 using PlatformService.Data;
+using PlatformService.SyncDataServices.Http;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -27,7 +29,10 @@ builder.Services.AddDbContext<AppDbContext>(
 );
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
+//! http client factory
+builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 /* -------------------------------------------------------------------------- */
+Console.WriteLine($"==> Command Service Endpint is : {builder.Configuration["CommandService"]}");
 
 var app = builder.Build();
 
@@ -41,6 +46,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+PrepDb.PrepPopulation(app);
 
 app.MapControllers();
 
